@@ -1,0 +1,35 @@
+NAME
+    Perinci::Use - Use a Riap package like a local Perl module
+
+VERSION
+    version 0.02
+
+SYNOPSIS
+     # import pyth()
+     use Perinci::Use "http://example.com/My/Math", 'pyth';
+     print pyth(3, 4); # 5
+
+     # import all
+     use Perinci::Use "http://example.com/My/Math";
+
+DESCRIPTION
+    This module provides use_riap_package(), usually used as shown in
+    Synopsis, a la Perl's use().
+
+    This module uses Log::Any for logging.
+
+FUNCTIONS
+    None are exported.
+
+SEE ALSO
+    Perinci::Access
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2012 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
