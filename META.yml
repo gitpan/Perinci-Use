@@ -16,9 +16,9 @@ name: Perinci-Use
 requires:
   Log::Any: 0
   Perinci::Access: 0
-  Test::More: 0.96
+  Perinci::Sub::Util: 0
   perl: 5.010000
 resources:
   homepage: http://search.cpan.org/dist/Perinci-Use/
   repository: http://github.com/sharyanto/perl-Perinci-Use
-version: 0.02
+version: 0.03

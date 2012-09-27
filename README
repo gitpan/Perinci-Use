@@ -2,7 +2,7 @@ NAME
     Perinci::Use - Use a Riap package like a local Perl module
 
 VERSION
-    version 0.02
+    version 0.03
 
 SYNOPSIS
      # import pyth()

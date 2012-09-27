@@ -17,7 +17,7 @@ my %module_build_args = (
     "Steven Haryanto <stevenharyanto\@gmail.com>"
   ],
   "dist_name" => "Perinci-Use",
-  "dist_version" => "0.02",
+  "dist_version" => "0.03",
   "license" => "perl",
   "module_name" => "Perinci::Use",
   "recommends" => {},
@@ -25,7 +25,7 @@ my %module_build_args = (
   "requires" => {
     "Log::Any" => 0,
     "Perinci::Access" => 0,
-    "Test::More" => "0.96",
+    "Perinci::Sub::Util" => 0,
     "perl" => "5.010000"
   },
   "script_files" => []

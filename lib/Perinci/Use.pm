@@ -4,9 +4,11 @@ use 5.010;
 use strict;
 use warnings;
 use Log::Any '$log';
-use Perinci::Access;
 
-our $VERSION = '0.02'; # VERSION
+use Perinci::Access;
+use Perinci::Sub::Util qw(wrapres);
+
+our $VERSION = '0.03'; # VERSION
 
 our %SPEC;
 
@@ -65,8 +67,8 @@ sub use_riap_package {
 
     # try child_metas first
     my $res = $pa->request(child_metas => $url);
-    return [500, "Can't request action 'child_metas' on URL $url: ".
-                "$res->[0] - $res->[1]"]
+    return wrapres(
+        [500, "Can't request action 'child_metas' on URL $url: "], $res)
         unless $res->[0] == 200 || $res->[0] == 502;
 
     my @e;
@@ -74,15 +76,14 @@ sub use_riap_package {
         my $metas = $res->[2];
         for my $u (keys %$metas) {
             my $meta = $metas->{$u};
-            next if $meta->{args};
+            next unless $meta->{args};
             my $sub = $u; $sub =~ s!.+/!!;
             push @e, [$sub, $u, $meta];
         }
     } else {
         # try 'list' + later 'meta' for each child
         $res = $pa->request(list => $url, {detail=>1});
-        return [500, "Can't request action 'list' on URL $url: ".
-                "$res->[0] - $res->[1]"]
+        return wrapres([500, "Can't request action 'list' on URL $url: "], $res)
             unless $res->[0] == 200;
         for my $r (@{$res->[2]}) {
             next unless $r->{type} eq 'function';
@@ -93,7 +94,7 @@ sub use_riap_package {
 
     # check all specified entries 'include' must exist
     for my $s (@$inc) {
-        return [400, "'$_' does not exist under $url"]
+        return [400, "'$s' does not exist under $url"]
             unless grep {$s eq $_->[0]} @e;
     }
 
@@ -104,8 +105,8 @@ sub use_riap_package {
         # get metadata if not yet retrieved
         unless ($e->[2]) {
             $res = $pa->request(meta => $e->[1]);
-            return [500, "Can't request action 'meta' on URL $e->[1]: ".
-                        "$res->[0] - $res->[1]"]
+            return wrapres(
+                [500, "Can't request action 'meta' on URL $e->[1]: "], $res)
                 unless $res->[0] == 200;
             $e->[2] = $res->[2];
         }
@@ -158,7 +159,7 @@ Perinci::Use - Use a Riap package like a local Perl module
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 
